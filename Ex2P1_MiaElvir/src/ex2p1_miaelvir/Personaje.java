@@ -19,6 +19,11 @@ public class Personaje {
         this.DefensePoints = DefensePoints;
     }
 
+    public Personaje() {
+    }
+    
+    
+
     public String getNombre() {
         return Nombre;
     }

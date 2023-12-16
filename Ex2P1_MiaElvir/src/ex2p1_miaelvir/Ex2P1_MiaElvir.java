@@ -38,31 +38,91 @@ public class Ex2P1_MiaElvir {
     public static void Jugar(){
         int cuarto = 1;
         char seguir = 's'; 
-        while (cuarto < 6 && (seguir == 's' || seguir == 'S') ){
+        while (cuarto < 20 && (seguir == 's' || seguir == 'S') ){
             System.out.println("Estamos en el cuarto : "+cuarto);
             int content = ran.nextInt(1, 6); 
             
             switch(content){
                 case 1: 
                     int heartless = ran.nextInt(1, 4); 
+                    System.out.println("Nos encontramos con "+heartless+" heartless");
                     int vida_h = 75 * heartless; 
-                    Imprimir_personajes(Party);
-                    System.out.println("Elije personaje: ");
-                    int personaje_elejido = papoy.nextInt();
-                    System.out.println("--- MENU ---\n1. Attack\n2. Magic\n3. Items\n4. Party\nIngrese: ");
-                    int op_accion = papoy.nextInt(); 
-                    switch(op_accion){
-                        case 1: 
-                            //ataque
-                            break; 
-                        case 2: 
-                            break; 
-                        case 3: 
-                            break; 
-                        case 4: 
-                            //cambiar personaje 
-                            break; 
-                    }
+                    while (vida_h > 0 && (Party.isEmpty() != true) ){
+                        Imprimir_personajes(Party);
+                        System.out.println("Elije el personaje: ");
+                        int personaje_elejido = papoy.nextInt();
+                        while (personaje_elejido > 4 || personaje_elejido < 0){
+                            System.out.println("Debe elegir de las opciones posibles: \nVuelva a Ingresar: ");
+                            personaje_elejido = papoy.nextInt(); 
+                        }
+                        Personaje personaje = new Personaje(); 
+                        switch (personaje_elejido){
+                            case 1: 
+                                personaje = Party.get(0);
+                                break; 
+                            case 2: 
+                                personaje = Party.get(1);
+                                break; 
+                            case 3: 
+                                personaje = Party.get(2);
+                                break; 
+                        }
+                        System.out.println("--- MENU ---\n1. Attack\n2. Magic\n3. Items\n4. Party\nIngrese: ");
+                        int op_accion = papoy.nextInt(); 
+
+                        switch(op_accion){
+                            case 1: 
+                                //ataque
+                                vida_h -= personaje.getAttackPoints();
+                                int daño = 25 * (1-personaje.getDefensePoints()); 
+                                int nuevo_hp = personaje.getHP()-daño; 
+                                System.out.println(personaje.getNombre()+" ataco!\n"+personaje.getNombre()+" recibio el golpe!");
+                                System.out.println("Los Heartless les queda "+vida_h+" de vida");
+                                personaje.setHP(nuevo_hp);
+                                break; 
+                            case 2: 
+                                System.out.println("--- HECHIZOS ---\n1. Blizzard 50MP - 50DMG\n2.Firaga 25MP - 25 DMG\n3. Gravity 75MP - 100DMG");
+                                int hechizo = papoy.nextInt(); 
+                                switch (hechizo){
+                                    case 1: 
+                                        System.out.println("\n"+personaje.getNombre()+" uso Blizzard!");
+                                        vida_h-=50; 
+                                        personaje.setMP(personaje.getMP()-50);
+                                        daño = 25 * (1-personaje.getDefensePoints());
+                                        nuevo_hp = personaje.getHP()-daño; 
+                                        System.out.println(personaje.getNombre()+" recibio el golpe!");
+                                        System.out.println("A los Heartless les queda "+vida_h+" de vida");
+                                         personaje.setHP(nuevo_hp);
+                                        break; 
+                                    case 2: 
+                                        System.out.println("\n"+personaje.getNombre()+" uso Firaga!");
+                                        vida_h-=25; 
+                                        personaje.setMP(personaje.getMP()-25);
+                                        daño = 25 * (1-personaje.getDefensePoints());
+                                        nuevo_hp = personaje.getHP()-daño; 
+                                        System.out.println(personaje.getNombre()+" recibio el golpe!");
+                                        System.out.println("A los Heartless les queda "+vida_h+" de vida");
+                                         personaje.setHP(nuevo_hp);
+                                        break; 
+                                    case 3: 
+                                        System.out.println("\n"+personaje.getNombre()+" uso Gravity!");
+                                        vida_h-=100; 
+                                        personaje.setMP(personaje.getMP()-75);
+                                        daño = 25 * (1-personaje.getDefensePoints());
+                                        nuevo_hp = personaje.getHP()-daño; 
+                                        System.out.println(personaje.getNombre()+" recibio el golpe!");
+                                        System.out.println("A los Heartless les queda "+vida_h+" de vida");
+                                         personaje.setHP(nuevo_hp);
+                                        break; 
+                                }
+                                break; 
+                            case 3: 
+                                break; 
+                            case 4: 
+                                //cambiar personaje 
+                                break; 
+                        }
+                    }//while
                     
                     //pelea
                     break; 
@@ -101,7 +161,7 @@ public class Ex2P1_MiaElvir {
             seguir = papoy.next().charAt(0); 
         }
     
-    }
+    }//fin jugar
     
     public static void Inicializar_listas(){
         Party.add(new Personaje("Sora", 300, 300,75,15)); 
