@@ -14,6 +14,11 @@ public class Items {
         this.MPpoints = MPpoints;
     }
 
+    public Items() {
+    }
+    
+    
+
     public String getNombre() {
         return Nombre;
     }
@@ -40,7 +45,7 @@ public class Items {
 
     @Override
     public String toString() {
-        return "Items{" + "Nombre=" + Nombre + ", HPpoints=" + HPpoints + ", MPpoints=" + MPpoints + '}';
+        return "--- Items ---\n" + Nombre + "\nHPpoints: " + HPpoints + "\nMPpoints:" + MPpoints + "\n";
     }
     
     
