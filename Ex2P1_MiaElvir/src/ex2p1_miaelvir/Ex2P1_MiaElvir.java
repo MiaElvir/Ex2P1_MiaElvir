@@ -26,6 +26,8 @@ public class Ex2P1_MiaElvir {
         while (resp == 'S' || resp =='s'){
             Inicializar_listas();
             Jugar();
+            System.out.println("Quiere volver a jugar?");
+            resp = papoy.next().charAt(0); 
         }
         
         
@@ -38,7 +40,7 @@ public class Ex2P1_MiaElvir {
     public static void Jugar(){
         int cuarto = 1;
         char seguir = 's'; 
-        while (cuarto < 20 && (seguir == 's' || seguir == 'S') ){
+        while (cuarto < 21 && (seguir == 's' || seguir == 'S') ){
             System.out.println("Estamos en el cuarto : "+cuarto);
             int content = ran.nextInt(1, 6); 
             
